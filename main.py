@@ -4,14 +4,19 @@ import cv2
 import easyocr
 import numpy as np
 import telebot
+from dotenv import load_dotenv
 
-# Инициализируем бота и EasyOCR (поддерживает русский, казахский и английский)
-bot = telebot.TeleBot("YOUR_TELEGRAM_BOT_TOKEN_HERE")
+# Загружаем переменные из файла .env
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+# Инициализируем бота по защищенному токену
+bot = telebot.TeleBot(BOT_TOKEN)
 reader = easyocr.Reader(["ru", "en"])
-
 
 UPLOAD_DIR = "images"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 
 
 def process_and_ocr(image_path):
